@@ -49,10 +49,24 @@
     }
     NSError* error;
     NSData* searchResults = [NSData dataWithContentsOfURL:url];
-    if([searchResults isNotEqualTo:[NSNull null]])
+    
+    BOOL exc_encountered = 0;
+    @try {
         result = [NSJSONSerialization JSONObjectWithData:searchResults options:kNilOptions error:&error];
-    else
-        result = nil;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exception: %@",exception);
+        exc_encountered = 1;
+    }
+    @finally {
+        if (exc_encountered == 1) {
+            NSLog(@"Exception encountered. Setting |result| for %@ to nil.",function);
+            result = nil;
+        }
+        else {
+            NSLog(@"Returning |result| for %@.",function);
+        }
+    }
 }
 -(NSDictionary*)host:(NSString*)ip{
     //Get all the available information on a host in the SHODAN database
@@ -62,8 +76,8 @@
      Use:
      [api search:@"your query"];
      Stores a dictionary containing: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", "data"
-     The dictionary is contained in api.results
-     */
+     The dictionary is contained in the |result| property, i.e. |WebAPI_instance_name.result|
+    */
     args = [ip stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     [self request:@"host"];
     return result;
@@ -75,7 +89,7 @@
      Use:
      [api info];
      Stores a dictionary containing: "unlocked_left", "telnet", "plan", "https", "unlocked"
-     The dictionary is contained in api.results
+     The dictionary is contained in the |result| property, i.e. |WebAPI_instance_name.result|
      */
     [self request:@"info"];
     return result;
@@ -89,7 +103,7 @@
      Use:
      [api locations:@"your query"];
      Stores a dictionary containing: "cities" and "countries"
-     The dictionary is contained in api.results
+     The dictionary is contained in the |result| property, i.e. |WebAPI_instance_name.result|
      */
     args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     [self request:@"locations"];
@@ -108,7 +122,7 @@
       Use:
         [api search:@"your query"];
        Stores a dictionary containing: "cities", "countries", "matches", "total"
-        The dictionary is contained in api.results
+        The dictionary is contained in the |result| property, i.e. |WebAPI_instance_name.result|
       */
 
     query = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
