@@ -1,6 +1,10 @@
-Visit the documents for my Objective-C library for SHODAN at:
+Visit the documentation for my Objective-C library for SHODAN at:
 
 [http://ipwnstuff.com/docs](http://ipwnstuff.com/docs)
+
+To visit the official Shodan API documentation go here:
+
+[http://docs.shodanhq.com](http://docs.shodanhq.com)
 
 ## Usage
 
@@ -45,10 +49,3 @@ Previosly to test for exceptions/catch errors you would have to wrap any request
             NSLog(@"Returning |result| for %@.",function);
         }
     }
-    
-Visit my Objective-C Libraries Documents at:
-[http://ipwnstuff.com/docs](http://ipwnstuff.com/docs)
-
-To visit the official Shodan API documentation go here:
-
-[http://docs.shodanhq.com](http://docs.shodanhq.com)
