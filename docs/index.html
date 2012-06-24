@@ -30,18 +30,36 @@
         <section id="main-content">
           <h2>Welcome to my Objective-C library for SHODAN.</h2>
 
-<p>This library was the first major project I built but I had a whopping three APIs to look at and play with to see what functionality I needed. Best of all the author, John Matherly (<a href="https://github.com/achillean" class="user-mention">@achillean</a>), of SHODAN was great at responding and giving me help.</p>
+<p>Before you can use this Objective-C library to connect to the SHODAN API, you need to have an API key <a href="http://www.shodanhq.com/api_doc">from SHODAN</a>.</p>
 
-<h2>Examples</h2>
-        
-<h3>Generating an IP list</h3>
-        <pre><code>int i = 0;
-        for (NSDictionary* host in [result objectForKey:@"matches"]) {
-        host = [[result objectForKey:@"matches"] objectAtIndex:i];
-        [self.ip_list addObject:[host objectForKey:@"ip"]];
-        i++;
-        }</code></pre>
-        
+<h2>Getting started</h2>
+<p>Create and initialize an instance of the WebAPI class:</p>
+<pre><code>#import "shodan.h" //Make sure to import this where you declare your interface.
+
+WebAPI* api = [[WebAPI alloc]init_with_api_key:@"Your API Key"];
+</code></pre>
+
+<h2>Searching shodan</h2>
+<p>Print a list of cisco-ios devices:</p>
+<pre><code>//Search SHODAN
+        NSDictionary* result = [api search:@"cisco"];
+//Show the results
+NSLog(@"%i",[result count]);
+int i = 0;
+for (id host in [result objectForKey:@"matches"]) {
+    host = [[result objectForKey:@"matches"] objectAtIndex:i];
+        NSLog(@"%@",[host objectForKey:@"ip"]);
+        NSLog(@"%@",[host objectForKey:@"data"]);
+    i++;
+}
+</code></pre>
+
+<h2>Look up a host</h2>
+<p>Grab all information SHODAN has on a specific ip (4.59.125.121)</p>
+<pre><code>NSDictionary* host = [api host:@"4.59.125.121"];
+NSLog(@"%@",host);
+</code></pre>
+
 <h2>Authors and Contributors</h2>
 
 <h3>Author</h3>
