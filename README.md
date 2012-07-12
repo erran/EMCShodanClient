@@ -1,6 +1,6 @@
 Visit the documentation for my Objective-C library for SHODAN at:
 
-[http://ipwnstuff.com/docs](http://ipwnstuff.com/docs)
+[http://ipwnstuff.github.com/shodan-objective-c/docs](http://ipwnstuff.github.com/shodan-objective-c/docs)
 
 To visit the official Shodan API documentation go here:
 
