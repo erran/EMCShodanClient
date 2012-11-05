@@ -32,7 +32,7 @@
 
 -(void)request:(NSString*)function
 {
-	// Send the request based on the function.
+  // Send the request based on the function.
 	params = [NSMutableDictionary dictionaryWithObjectsAndKeys:base_url,@"base_url",[function stringByAppendingFormat:@"?"],@"function",[NSString stringWithFormat:@"key=%@",api_key],@"api_key",nil];
 	NSURL* url = nil;
 	NSString* url_string = @"";
@@ -89,7 +89,7 @@
 
 -(NSDictionary*)host:(NSString*)ip
 {
-	/*
+  /*
    * Get all the available information on a host in the SHODAN database
    *
    * Required arguments:
@@ -108,7 +108,7 @@
 
 -(NSDictionary*)info
 {
-	/*
+  /*
    * View the current API key's plan, add-ons, and credits.
    *
    * Usage:
@@ -123,7 +123,7 @@
 
 -(NSDictionary*)locations:(NSString*)query
 {
-	/*
+  /*
    * Return a list of the countries and cities found for a given search query.
    *
    * Required arguments:
@@ -142,7 +142,7 @@
 
 -(NSDictionary*)search:(NSString*)query page:(int)p limit:(int)l offset:(int)o
 {
-	/*
+  /*
    * Search the SHODAN database.
    *
    * Required arguments:
