@@ -47,7 +47,10 @@
 	}
 #endif
 	
-	if ([function isEqualToString:@"host"]) {
+	if ([function isEqualToString:@"count"]) {
+		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",args]];
+	}
+	else if ([function isEqualToString:@"host"]) {
 		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&ip=%@",args]];
 	}
 	else if ([function isEqualToString:@"info"]) {
@@ -83,7 +86,7 @@
    *
    */
 	args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-	[self request:@"locations"];
+	[self request:@"count"];
 	return result;
 }
 
