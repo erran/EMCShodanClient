@@ -31,7 +31,7 @@
 
 -(void)request:(NSString*)function
 {
-	//Send the request based on the function.
+	// Send the request based on the function.
 	params = [NSMutableDictionary dictionaryWithObjectsAndKeys:base_url,@"base_url",[function stringByAppendingFormat:@"?"],@"function",[NSString stringWithFormat:@"key=%@",api_key],@"api_key",nil];
 	NSURL* url = nil;
 	NSString* url_string = @"";
@@ -70,14 +70,17 @@
 }
 -(NSDictionary*)host:(NSString*)ip
 {
-	//Get all the available information on a host in the SHODAN database
 	/*
-	 Required arguments:
-	 — host : The IP address of the host.
-	 Use:
-	 [api search:@"your query"];
-	 Stores a dictionary containing: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", "data"
-	 The dictionary is contained in api.results
+	 * Get all the available information on a host in the SHODAN database
+	 *
+   * Required arguments:
+	 *    — host : The IP address of the host.
+   *
+	 * Usage:
+	 *    `[api search:@"your query"];`
+	 *
+   * Stores a dictionary containing: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", "data"
+	 * The dictionary is contained in api.results
 	 */
 	args = [ip stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"host"];
@@ -86,12 +89,14 @@
 
 -(NSDictionary*)info
 {
-	//View the current API key's plan, add-ons, and credits.
 	/*
-	 Use:
-	 [api info];
-	 Stores a dictionary containing: "unlocked_left", "telnet", "plan", "https", "unlocked"
-	 The dictionary is contained in api.results
+	 * View the current API key's plan, add-ons, and credits.
+   *
+	 * Usage:
+	 *    `[api info];`
+	 *
+   * Stores a dictionary containing: "unlocked_left", "telnet", "plan", "https", "unlocked"
+	 * The dictionary is contained in api.results
 	 */
 	[self request:@"info"];
 	return result;
@@ -99,14 +104,17 @@
 
 -(NSDictionary*)locations:(NSString*)query
 {
-	//Return a list of the countries and cities found for a given search query.
 	/*
-	 Required arguments:
-	 — query : Search query.
-	 Use:
-	 [api locations:@"your query"];
-	 Stores a dictionary containing: "cities" and "countries"
-	 The dictionary is contained in api.results
+	 * Return a list of the countries and cities found for a given search query.
+	 *
+   * Required arguments:
+	 *    — query : Search query.
+	 *
+   * Usage:
+	 *    `[api locations:@"your query"];`
+	 *
+   * Stores a dictionary containing: "cities" and "countries"
+	 * The dictionary is contained in api.results
 	 */
 	args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"locations"];
@@ -115,18 +123,22 @@
 
 -(NSDictionary*)search:(NSString*)query page:(int)p limit:(int)l offset:(int)o
 {
-	//Search the SHODAN database.
 	/*
-	 Required arguments:
-	 — query : Search query.
-	 Optional arguments:
-	 - page : Specify the page number for results.
-	 - limit : Determine the results per page.
-	 - offset : Specify from which result you begin.
-	 Use:
-	 [api search:@"your query"];
-	 Stores a dictionary containing: "cities", "countries", "matches", "total"
-	 The dictionary is contained in api.results
+	 * Search the SHODAN database.
+	 *
+   * Required arguments:
+	 *    — query : Search query.
+	 *
+   * Optional arguments:
+	 *    - page : Specify the page number for results.
+	 *    - limit : Determine the results per page.
+	 *    - offset : Specify from which result you begin.
+	 *
+   * Usage:
+	 *    `[api search:@"your query"];`
+	 *
+   * Stores a dictionary containing: "cities", "countries", "matches", "total"
+	 * The dictionary is contained in api.results
 	 */
 	
 	query = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
