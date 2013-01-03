@@ -30,7 +30,7 @@ Grab all information SHODAN has on a specific ip (4.59.125.121):
     NSDictionary* host = [api host:@"4.59.125.121"];
     NSLog(@"%@",host);
 
-Previosly to test for exceptions/catch errors you would have to wrap any request in a @try-@catch block, now I simplified it by building it into my generic request method.
+Exceptions are now caught in the request method.
 
     BOOL exc_encountered = 0;
     @try {
