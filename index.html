@@ -1,47 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
+    <title>Shodan by ipwnstuff</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <title>ipwnstuff | SHODAN</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>SHODAN</h1>
-        <h2>Objective-C library for SHODAN</h2>
-        <a href="https://github.com/ipwnstuff/shodan-objective-c" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/ipwnstuff/shodan-objc">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/ipwnstuff/shodan-objc/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/ipwnstuff/shodan-objc/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h2>Welcome to my Objective-C library for SHODAN.</h2>
+    <div class="wrapper">
 
-<p>This library was the first major project I built but I had a whopping three APIs to look at and play with to see what functionality I needed. Best of all the author, John Matherly (<a href="https://github.com/achillean" class="user-mention">@achillean</a>), of SHODAN was great at responding and giving me help.</p>
+      <section>
+        <div id="title">
+          <h1>Shodan</h1>
+          <p>Objective-C API for Shodan</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/ipwnstuff">ipwnstuff</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
 
-<h2>Examples</h2>
-        
-<h3>Generating an IP list</h3>
-        <pre><code>int i = 0;
-        for (NSDictionary* host in [result objectForKey:@"matches"]) {
-        host = [[result objectForKey:@"matches"] objectAtIndex:i];
-        [self.ip_list addObject:[host objectForKey:@"ip"]];
-        i++;
-        }</code></pre>
-        
+        <h2>Welcome to my Objective-C library for Shodan.</h2>
+
+<p>This library was the first major project I built but I had a whopping three APIs to look at and play with to see what functionality I needed. Best of all the author, John Matherly (<a href="https://github.com/achillean" class="user-mention">@achillean</a>), of Shodan was great at responding and giving me help.</p>
+
+<h2>Usage</h2>
+
+<p>Before you can use this Objective-C library to connect to the Shodan API, you need to have an API key <a href="http://www.shodanhq.com/api_doc">from SHODAN</a>.</p>
+
+<h3>Create and initialize an instance of the WebAPI class:</h3>
+
+<div class="highlight"><pre><span class="cp">#import "api.h" </span><span class="c1">// Import the Shodan API</span>
+<span class="n">WebAPI</span><span class="o">*</span> <span class="n">api</span> <span class="o">=</span> <span class="p">[[</span><span class="n">WebAPI</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">init_with_api_key:</span><span class="s">@"Your API Key"</span><span class="p">];</span>
+</pre></div>
+
+<h3>Print a list of cisco-ios devices:</h3>
+
+<div class="highlight"><pre><span class="n">NSDictionary</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">api</span> <span class="nl">search:</span><span class="s">@"cisco"</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">id</span> <span class="n">host</span> <span class="k">in</span> <span class="p">[</span><span class="n">result</span> <span class="nl">objectForKey:</span><span class="s">@"matches"</span><span class="p">])</span> <span class="p">{</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="p">[[</span><span class="n">result</span> <span class="nl">objectForKey:</span><span class="s">@"matches"</span><span class="p">]</span> <span class="nl">objectAtIndex:</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,[</span><span class="n">host</span> <span class="nl">objectForKey:</span><span class="s">@"ip"</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>Grab all information Shodan has on a specific ip (4.59.125.121):</h3>
+
+<div class="highlight"><pre><span class="n">NSDictionary</span><span class="o">*</span> <span class="n">host</span> <span class="o">=</span> <span class="p">[</span><span class="n">api</span> <span class="nl">host:</span><span class="s">@"4.59.125.121"</span><span class="p">];</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">host</span><span class="p">);</span>
+</pre></div>
+
 <h2>Authors and Contributors</h2>
 
 <h3>Author</h3>
@@ -51,30 +78,17 @@
 <h3>Contributor</h3>
 
 <p>John Matherly (<a href="https://github.com/achillean" class="user-mention">@achillean</a>)
-John provided me with credits I needed to test my library out and he authored the official libraries for the SHODAN API and the SHODAN search engine.</p>
+<em>John provided me with credits I needed to test my library out and he authored the official libraries for the Shodan API and the Shodan search engine.</em>
+Marcus J. Carey (<a href="https://github.com/marcuscarey" class="user-mention">@marcuscarey</a>)
+<em>My dad contributed to all of the graphics used in the app and concept development.</em></p>
 
 <h2>Support or Contact</h2>
 
-<p>If your having trouble with any part of my Objective-C library for SHODAN get in contact with me! I'll be sure to update my documentation at a later date but for now contact me at <a href="mailto:e@ipwnstuff.com">e@ipwnstuff.com</a> or <a href="http://www.twitter.com/#!/ipwnstuff">@ipwnstuff</a> and I’ll help you sort it out.</p>
-        </section>
+<p>If your having trouble with any part of my Objective-C library for Shodan get in contact with me! I'll be sure to update my documentation at a later date but for now contact me at <a href="mailto:e@ipwnstuff.com">e@ipwnstuff.com</a> or <a href="http://www.twitter.com/#!/ipwnstuff">@ipwnstuff</a> and I’ll help you sort it out.</p>
+      </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/ipwnstuff/shodan-objective-c/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/ipwnstuff/shodan-objective-c/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/ipwnstuff/shodan-objective-c"></a> is maintained by <a href="https://github.com/ipwnstuff">ipwnstuff</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
     </div>
-
-  
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
