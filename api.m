@@ -8,6 +8,9 @@
 
 #import "api.h"
 
+/**
+ * A WebAPI object interfaces with the ShodanHQ site.
+ */
 @implementation WebAPI
 
 @synthesize api_key;
@@ -16,6 +19,10 @@
 @synthesize result;
 @synthesize params;
 
+/**
+ * @param apikey The API key to initalize the API object with.
+ * @returns self
+ */
 -(id)init_with_api_key:(NSString*)apikey
 {
 	if (self = [super init]){
@@ -25,14 +32,21 @@
 	return self;
 }
 
+/**
+ * @param apikey The API key to initalize the API object with.
+ */
 -(void)set_api_key:(NSString*)apikey
 {
 	api_key = apikey;
 }
 
+/**
+ * Sends a request to ShodanHQ based on the function.
+ *
+ * @param function The type of request to send to ShodanHQ.
+ */
 -(void)request:(NSString*)function
 {
-  // Send the request based on the function.
 	params = [NSMutableDictionary dictionaryWithObjectsAndKeys:base_url,@"base_url",[function stringByAppendingFormat:@"?"],@"function",[NSString stringWithFormat:@"key=%@",api_key],@"api_key",nil];
 	NSURL* url = nil;
 	NSString* url_string = @"";
@@ -73,96 +87,70 @@
 	}
 }
 
+// TODO: Fix the @returns value.
+/**
+ * Retrieves the count of results for a given query.
+ *
+ * @param query The query to request a count for.
+ * @returns A NSDictionary with the count as the first value.
+ */
 -(NSDictionary*)count:(NSString*)query
 {
-  /*
-   * Find the number of results for a query.
-   *
-   * Required arguments:
-   *	 - query : Search query.
-   *
-   * Usage:
-   *	 `[api count@"your query"];`
-   *
-   */
 	args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"count"];
 	return result;
 }
 
+/**
+ * Get all the available information on a host in the SHODAN database
+ *
+ * @param ip The ip of a host to lookup.
+ * @returns A NSDictionary with the keys: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", and "data".
+ */
 -(NSDictionary*)host:(NSString*)ip
 {
-  /*
-   * Get all the available information on a host in the SHODAN database
-   *
-   * Required arguments:
-   *    — host : The IP address of the host.
-   *
-   * Usage:
-   *    `[api search:@"your query"];`
-   *
-   * Stores a dictionary containing: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", "data"
-   * The dictionary is contained in api.results
-   */
 	args = [ip stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"host"];
 	return result;
 }
 
+/**
+ * View the current API key's plan, add-ons, and credits.
+ *
+ * @returns A NSDictionary with the keys: "unlocked_left", "telnet", "plan", "https", and "unlocked".
+ */
 -(NSDictionary*)info
 {
-  /*
-   * View the current API key's plan, add-ons, and credits.
-   *
-   * Usage:
-   *    `[api info];`
-   *
-   * Stores a dictionary containing: "unlocked_left", "telnet", "plan", "https", "unlocked"
-   * The dictionary is contained in api.results
-   */
 	[self request:@"info"];
 	return result;
 }
 
+/**
+ * Return a list of the countries and cities found for a given search query.
+ *
+ * @param query The query to retrieve location information for.
+ * @returns A NSDictionary with the keys: "cities" and "countries".
+ */
 -(NSDictionary*)locations:(NSString*)query
 {
-  /*
-   * Return a list of the countries and cities found for a given search query.
-   *
-   * Required arguments:
-   *    — query : Search query.
-   *
-   * Usage:
-   *    `[api locations:@"your query"];`
-   *
-   * Stores a dictionary containing: "cities" and "countries"
-   * The dictionary is contained in api.results
-   */
 	args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"locations"];
 	return result;
 }
 
--(NSDictionary*)search:(NSString*)query page:(int)p limit:(int)l offset:(int)o
+/** @name Search methods */
+
+/**
+ * Search the SHODAN database.
+ *
+ * @param query The query to search ShodanHQ for.
+ * @param page The page number for results.
+ * @param limit The results to display per page.
+ * @param offset The result number to begin searching from.
+ * @returns A NSDictionary with the keys: "cities", "countries", "matches", and "total".
+ */
+-(NSDictionary*)search:(NSString*)query page:(int)page limit:(int)limit offset:(int)offset
 {
-  /*
-   * Search the SHODAN database.
-   *
-   * Required arguments:
-   *    — query : Search query.
-   *
-   * Optional arguments:
-   *    - page : Specify the page number for results.
-   *    - limit : Determine the results per page.
-   *    - offset : Specify from which result you begin.
-   *
-   * Usage:
-   *    `[api search:@"your query"];`
-   *
-   * Stores a dictionary containing: "cities", "countries", "matches", "total"
-   * The dictionary is contained in api.results
-   */
-	
 	query = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	
 	args = [query stringByAppendingString:[NSString stringWithFormat:@"&p=%i&l=%i&o=%i",p,l,o]];
@@ -170,19 +158,41 @@
 	return result;
 }
 
+/**
+ * Search the SHODAN database.
+ *
+ * @param query The query to search ShodanHQ for.
+ * @see method search:page:limit:offset:
+ * @returns A NSDictionary (NSJSONSerialization) of the result.
+ */
 -(NSDictionary*)search:(NSString*)query
 {
 	[self search:query page:1 limit:100 offset:0];
 	return result;
 }
 
--(NSDictionary*)search:(NSString*)query page:(int)p
+/**
+ * Search the SHODAN database.
+ *
+ * @param query The query to search ShodanHQ for.
+ * @param page The page number for results.
+ * @returns A NSDictionary (NSJSONSerialization) of the result.
+ */
+-(NSDictionary*)search:(NSString*)query page:(int)page
 {
 	[self search:query page:p limit:100 offset:0];
 	return result;
 }
 
--(NSDictionary*)search:(NSString*)query page:(int)p limit:(int)l
+/**
+ * Search the SHODAN database.
+ *
+ * @param query The query to search ShodanHQ for.
+ * @param page The page number for results.
+ * @param limit The results to display per page.
+ * @returns A NSDictionary (NSJSONSerialization) of the result.
+ */
+-(NSDictionary*)search:(NSString*)query page:(int)page limit:(int)limit
 {
 	[self search:query page:p limit:l offset:0];
 	return result;
