@@ -3,13 +3,13 @@
 //  shodan
 //
 //  Created by Erran Carey on 6/2/12.
-//  Copyright (c) 2012 @ipwnstuff. All rights reserved.
+//
 //
 
 #import "api.h"
 
 /**
- * A WebAPI object interfaces with the ShodanHQ site.
+ A WebAPI object interfaces with the ShodanHQ site.
  */
 @implementation WebAPI
 
@@ -20,8 +20,8 @@
 @synthesize params;
 
 /**
- * @param apikey The API key to initalize the API object with.
- * @returns self
+ @param apikey The API key to initalize the API object with.
+ @returns self
  */
 -(id)init_with_api_key:(NSString*)apikey
 {
@@ -33,7 +33,7 @@
 }
 
 /**
- * @param apikey The API key to initalize the API object with.
+ @param apikey The API key to initalize the API object with.
  */
 -(void)set_api_key:(NSString*)apikey
 {
@@ -41,9 +41,9 @@
 }
 
 /**
- * Sends a request to ShodanHQ based on the function.
- *
- * @param function The type of request to send to ShodanHQ.
+ Sends a request to ShodanHQ based on the function.
+
+ @param function The type of request to send to ShodanHQ.
  */
 -(void)request:(NSString*)function
 {
@@ -87,12 +87,13 @@
 	}
 }
 
-// TODO: Fix the @returns value.
 /**
- * Retrieves the count of results for a given query.
- *
- * @param query The query to request a count for.
- * @returns A NSDictionary with the count as the first value.
+ Retrieves the count of results for a given query.
+
+ [todo] - Fix the @returns value.
+
+ @param query The query to request a count for.
+ @returns A NSDictionary with the count as the first value.
  */
 -(NSDictionary*)count:(NSString*)query
 {
@@ -102,10 +103,10 @@
 }
 
 /**
- * Get all the available information on a host in the SHODAN database
- *
- * @param ip The ip of a host to lookup.
- * @returns A NSDictionary with the keys: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", and "data".
+ Get all the available information on a host in the SHODAN database
+
+ @param ip The ip of a host to lookup.
+ @returns A NSDictionary with the keys: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", and "data".
  */
 -(NSDictionary*)host:(NSString*)ip
 {
@@ -115,9 +116,9 @@
 }
 
 /**
- * View the current API key's plan, add-ons, and credits.
- *
- * @returns A NSDictionary with the keys: "unlocked_left", "telnet", "plan", "https", and "unlocked".
+ View the current API key's plan, add-ons, and credits.
+
+ @returns A NSDictionary with the keys: "unlocked_left", "telnet", "plan", "https", and "unlocked".
  */
 -(NSDictionary*)info
 {
@@ -126,10 +127,10 @@
 }
 
 /**
- * Return a list of the countries and cities found for a given search query.
- *
- * @param query The query to retrieve location information for.
- * @returns A NSDictionary with the keys: "cities" and "countries".
+ Return a list of the countries and cities found for a given search query.
+
+ @param query The query to retrieve location information for.
+ @returns A NSDictionary with the keys: "cities" and "countries".
  */
 -(NSDictionary*)locations:(NSString*)query
 {
@@ -141,13 +142,13 @@
 /** @name Search methods */
 
 /**
- * Search the SHODAN database.
- *
- * @param query The query to search ShodanHQ for.
- * @param page The page number for results.
- * @param limit The results to display per page.
- * @param offset The result number to begin searching from.
- * @returns A NSDictionary with the keys: "cities", "countries", "matches", and "total".
+ Search the SHODAN database.
+
+ @param query The query to search ShodanHQ for.
+ @param page The page number for results.
+ @param limit The results to display per page.
+ @param offset The result number to begin searching from.
+ @returns A NSDictionary with the keys: "cities", "countries", "matches", and "total".
  */
 -(NSDictionary*)search:(NSString*)query page:(int)page limit:(int)limit offset:(int)offset
 {
@@ -159,11 +160,11 @@
 }
 
 /**
- * Search the SHODAN database.
- *
- * @param query The query to search ShodanHQ for.
- * @see method search:page:limit:offset:
- * @returns A NSDictionary (NSJSONSerialization) of the result.
+ Search the SHODAN database.
+
+ @param query The query to search ShodanHQ for.
+ @see method search:page:limit:offset:
+ @returns A NSDictionary (NSJSONSerialization) of the result.
  */
 -(NSDictionary*)search:(NSString*)query
 {
@@ -172,11 +173,11 @@
 }
 
 /**
- * Search the SHODAN database.
- *
- * @param query The query to search ShodanHQ for.
- * @param page The page number for results.
- * @returns A NSDictionary (NSJSONSerialization) of the result.
+ Search the SHODAN database.
+
+ @param query The query to search ShodanHQ for.
+ @param page The page number for results.
+ @returns A NSDictionary (NSJSONSerialization) of the result.
  */
 -(NSDictionary*)search:(NSString*)query page:(int)page
 {
@@ -185,12 +186,12 @@
 }
 
 /**
- * Search the SHODAN database.
- *
- * @param query The query to search ShodanHQ for.
- * @param page The page number for results.
- * @param limit The results to display per page.
- * @returns A NSDictionary (NSJSONSerialization) of the result.
+ Search the SHODAN database.
+
+ @param query The query to search ShodanHQ for.
+ @param page The page number for results.
+ @param limit The results to display per page.
+ @returns A NSDictionary (NSJSONSerialization) of the result.
  */
 -(NSDictionary*)search:(NSString*)query page:(int)page limit:(int)limit
 {
