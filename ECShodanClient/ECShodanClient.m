@@ -1,17 +1,15 @@
 //
-//  api.m
-//  shodan
+//  ECShodanClient.m
 //
 //  Created by Erran Carey on 6/2/12.
-//
 //
 
 #import "api.h"
 
 /**
- A WebAPI object interfaces with the ShodanHQ site.
+ A ECShodanClient object interfaces with the ShodanHQ site.
  */
-@implementation WebAPI
+@implementation ECShodanClient
 
 @synthesize api_key;
 @synthesize args;

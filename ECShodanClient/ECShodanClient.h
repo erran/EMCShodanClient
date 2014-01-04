@@ -1,14 +1,13 @@
 //
-//  api.h
-//  shodan
+//  ECShodanClient.h
 //
 //  Created by Erran Carey on 6/2/12.
-//  Copyright (c) 2012 @ipwnstuff. All rights reserved.
+//
 //
 
 #import <Foundation/Foundation.h>
 
-@interface WebAPI : NSObject
+@interface ECShodanClient : NSObject
 
 @property (strong, nonatomic) NSString* api_key;
 @property (strong, nonatomic) NSString* args;
