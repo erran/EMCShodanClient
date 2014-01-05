@@ -8,17 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#pragma mark ECShodanClient
-#pragma mark -
-
 /**
  A ECShodanClient object interfaces with the ShodanHQ site.
  */
 @interface ECShodanClient : NSObject
 
-#pragma mark -
-#pragma mark Properties
-#pragma mark -
+///-----------------
+/// @name Properties
+///-----------------
 
 /**
  The API key to use as the 'key' parameter.
@@ -48,9 +45,9 @@
  */
 @property (strong, nonatomic) NSString *queryString;
 
-#pragma mark -
-#pragma mark Session Management Methods
-#pragma mark -
+///---------------------------------
+/// @name Session Management Methods
+///---------------------------------
 
 /**
  @param key The API key to initalize the API object with.
@@ -63,9 +60,9 @@
  */
 - (void)setAPIKey:(NSString *)key;
 
-#pragma mark -
-#pragma mark Other Methods
-#pragma mark -
+///--------------
+/// Other Methods
+///--------------
 
 /**
  Sends a request to ShodanHQ based on the function.
@@ -74,9 +71,9 @@
  */
 - (void)request:(NSString *)function;
 
-#pragma mark -
-#pragma mark Search API Methods
-#pragma mark -
+///-------------------
+/// Search API Methods
+///-------------------
 
 /**
  Retrieves the count of results for a given query.
@@ -152,9 +149,9 @@
                    limit:(int)perPage
                   offset:(int)pageOffset;
 
-#pragma mark -
-#pragma mark Other API Methods
-#pragma mark -
+///------------------
+/// Other API Methods
+///------------------
 
 /**
  View the current API key's plan, add-ons, and credits.
