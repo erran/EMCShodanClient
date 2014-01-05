@@ -1,9 +1,6 @@
 //
 //  ECShodanClient.h
 //
-//  Created by Erran Carey on 6/2/12.
-//
-//
 
 #import <Foundation/Foundation.h>
 

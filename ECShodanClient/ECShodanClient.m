@@ -1,8 +1,6 @@
 //
 //  ECShodanClient.m
 //
-//  Created by Erran Carey on 6/2/12.
-//
 
 #import "api.h"
 
