@@ -12,7 +12,7 @@ Before you can use this Objective-C library to connect to the SHODAN API, you ne
 Create and initialize an instance of the WebAPI class:
 
 ```objective-c
-#import "shodan.h"
+#import "ECShodanClient.h"
 
 WebAPI* api = [[WebAPI alloc]init_with_api_key:@"Your API Key"];
 ```
