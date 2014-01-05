@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+#pragma mark ECShodanClient
+#pragma mark -
+
 /**
  A ECShodanClient object interfaces with the ShodanHQ site.
  */
 @interface ECShodanClient : NSObject
+
+#pragma mark -
+#pragma mark Properties
+#pragma mark -
 
 /**
  The API key to use as the 'key' parameter.
@@ -41,6 +48,10 @@
  */
 @property (strong, nonatomic) NSString *queryString;
 
+#pragma mark -
+#pragma mark Session Management Methods
+#pragma mark -
+
 /**
  @param key The API key to initalize the API object with.
  @return ECShodanClient
@@ -52,6 +63,10 @@
  */
 - (void)setAPIKey:(NSString *)key;
 
+#pragma mark -
+#pragma mark Other Methods
+#pragma mark -
+
 /**
  Sends a request to ShodanHQ based on the function.
 
@@ -59,16 +74,9 @@
  */
 - (void)request:(NSString *)function;
 
-/**
- View the current API key's plan, add-ons, and credits.
-
- @return A NSDictionary with the keys: "unlocked_left", "telnet", "plan", "https", and "unlocked".
- */
-- (NSDictionary *)info;
-
-///-----------------------------------
-/// @name Miscellaneous Search Methods
-///-----------------------------------
+#pragma mark -
+#pragma mark Search API Methods
+#pragma mark -
 
 /**
  Retrieves the count of results for a given query.
@@ -95,10 +103,6 @@
  @return A NSDictionary with the keys: "cities" and "countries".
  */
 - (NSDictionary *)locations:(NSString *)query;
-
-///---------------------
-/// @name Search Methods
-///---------------------
 
 /**
  Search the SHODAN database.
@@ -147,5 +151,16 @@
                     page:(int)pageNumber
                    limit:(int)perPage
                   offset:(int)pageOffset;
+
+#pragma mark -
+#pragma mark Other API Methods
+#pragma mark -
+
+/**
+ View the current API key's plan, add-ons, and credits.
+
+ @return A NSDictionary with the keys: "unlocked_left", "telnet", "plan", "https", and "unlocked".
+ */
+- (NSDictionary *)info;
 
 @end

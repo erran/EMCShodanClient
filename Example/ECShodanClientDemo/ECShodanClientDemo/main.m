@@ -19,7 +19,18 @@ int main(int argc, const char * argv[])
 
         NSLog(@"client info: %@", [client info]);
 
-        // Subsequent requests should all fail a bad API key
+/*
+        NSDictionary* result = [client search:@"cisco" page:0 limit:100];
+
+        int i = 0;
+        for (id __strong host in [result objectForKey:@"matches"]) {
+            host = [[result objectForKey:@"matches"] objectAtIndex:i];
+            i++;
+            NSLog(@"%@",[host objectForKey:@"ip"]);
+        }
+*/
+
+        // Subsequent requests should all fail given a bad API key
         client.apiKey = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
         NSLog(@"failed client info: %@", [client info]);
     }

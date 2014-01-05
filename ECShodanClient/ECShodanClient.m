@@ -8,7 +8,14 @@
 
 #import "ECShodanClient.h"
 
+#pragma mark ECShodanClient
+#pragma mark -
+
 @implementation ECShodanClient
+
+#pragma mark -
+#pragma mark Properties
+#pragma mark -
 
 @synthesize apiKey;
 @synthesize baseURL; // [todo] - Use a constant
@@ -16,6 +23,8 @@
 @synthesize requestParameters;
 @synthesize queryString;
 
+#pragma mark -
+#pragma mark Session Management Methods
 #pragma mark -
 
 - (id)initWithAPIKey:(NSString *)key {
@@ -33,17 +42,15 @@
 }
 
 #pragma mark -
+#pragma mark Other Methods
+#pragma mark -
 
 - (void)request:(NSString *)function {
-    requestParameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:baseURL, @"baseURL", [function stringByAppendingFormat:@"?"], @"function", [NSString stringWithFormat:@"key=%@", apiKey], @"apiKey", nil];
-    /* [todo] - Use a literal dictionary
-
     requestParameters = @{
                              @"baseURL":  baseURL,
                              @"function": [function stringByAppendingFormat:@"?"],
                              @"apiKey":   [NSString stringWithFormat:@"key=%@", apiKey]
-                         }
-    */
+                         };
 
     NSURL* url = nil;
     NSString* url_string = @"";
@@ -77,12 +84,22 @@
 
     NSError* error;
     NSData* searchResults = [NSData dataWithContentsOfURL:url];
-    if(!searchResults) {
-        results = nil;
-    }
-    else{
+    if (searchResults) {
         results = [NSJSONSerialization JSONObjectWithData:searchResults options:kNilOptions error:&error];
     }
+    else {
+        results = nil;
+    }
+}
+
+#pragma mark -
+#pragma mark Search Methods
+#pragma mark -
+
+- (NSDictionary *)count:(NSString *)query {
+    queryString = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    [self request:@"count"];
+    return results;
 }
 
 - (NSDictionary *)host:(NSString *)hostname
@@ -92,36 +109,9 @@
     return results;
 }
 
-#pragma mark -
-#pragma mark Miscellaneous Search Methods
-#pragma mark -
-
-- (NSDictionary *)count:(NSString *)query {
-    queryString = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    [self request:@"count"];
-    return results;
-}
-
-- (NSDictionary *)info {
-    [self request:@"info"];
-    return results;
-}
-
 - (NSDictionary *)locations:(NSString *)query {
     queryString = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     [self request:@"locations"];
-    return results;
-}
-
-#pragma mark -
-#pragma mark Search Methods
-#pragma mark -
-
-- (NSDictionary *)search:(NSString *)query page:(int)pageNumber limit:(int)perPage offset:(int)pageOffset {
-    query = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-
-    queryString = [query stringByAppendingString:[NSString stringWithFormat:@"&p=%i&l=%i&o=%i", pageNumber, perPage, pageOffset]];
-    [self request:@"search"];
     return results;
 }
 
@@ -137,6 +127,23 @@
 
 - (NSDictionary *)search:(NSString *)query page:(int)pageNumber limit:(int)perPage {
     [self search:query page:pageNumber limit:perPage offset:0];
+    return results;
+}
+
+- (NSDictionary *)search:(NSString *)query page:(int)pageNumber limit:(int)perPage offset:(int)pageOffset {
+    query = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    queryString = [query stringByAppendingString:[NSString stringWithFormat:@"&p=%i&l=%i&o=%i", pageNumber, perPage, pageOffset]];
+
+    [self request:@"search"];
+    return results;
+}
+
+#pragma mark -
+#pragma mark Other API Methods
+#pragma mark -
+
+- (NSDictionary *)info {
+    [self request:@"info"];
     return results;
 }
 
