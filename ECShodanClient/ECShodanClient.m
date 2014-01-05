@@ -11,7 +11,7 @@
 @implementation ECShodanClient
 
 @synthesize apiKey;
-@synthesize baseURL;
+@synthesize baseURL; // [todo] - Use a constant
 @synthesize results;
 @synthesize queryString;
 @synthesize requestParameters;
