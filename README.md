@@ -14,7 +14,7 @@ Create and initialize an instance of the WebAPI class:
 ```objective-c
 #import "ECShodanClient.h"
 
-WebAPI* api = [[ECShodanClient alloc] initWithAPIKey:@"Your API Key"];
+ECShodanClient* api = [[ECShodanClient alloc] initWithAPIKey:@"Your API Key"];
 ```
 
 Print a list of cisco-ios devices:
