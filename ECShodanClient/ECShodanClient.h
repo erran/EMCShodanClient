@@ -19,6 +19,10 @@
 @property (strong, nonatomic) NSString *apiKey;
 
 /**
+ The base URL to send web requests to
+
+ [todo] - Use a constant instead
+ [review] - If a constant is used, how will testing work?
  */
 @property (strong, nonatomic) NSString *baseURL;
 
