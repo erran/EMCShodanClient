@@ -1,5 +1,9 @@
 //
 //  ECShodanClient.h
+//  Erran Carey
+//
+//  Created by Erran Carey on 1/4/14.
+//  Copyright (c) 2012-2014 Erran Carey. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -9,11 +13,12 @@
  */
 @interface ECShodanClient : NSObject
 
-@property (strong, nonatomic) NSString* apiKey;
-@property (strong, nonatomic) NSString* baseURL;
-@property (strong, nonatomic) NSDictionary * results;
-@property (strong, nonatomic) NSString* requestArguments;
-@property (strong, nonatomic) NSDictionary * requestParams;
+@property (strong, nonatomic) NSString *apiKey;
+@property (strong, nonatomic) NSString *baseURL;
+
+@property (strong, nonatomic) NSDictionary *results;
+@property (strong, nonatomic) NSString     *requestArguments;
+@property (strong, nonatomic) NSDictionary *requestParams;
 
 - (id)initWithAPIKey:(NSString *)key;
 
