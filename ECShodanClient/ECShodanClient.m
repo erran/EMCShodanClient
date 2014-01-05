@@ -9,31 +9,29 @@
  */
 @implementation ECShodanClient
 
-@synthesize api_key;
-@synthesize args;
-@synthesize base_url;
-@synthesize result;
-@synthesize params;
+@synthesize apiKey;
+@synthesize baseURL;
+@synthesize requestArguments;
+@synthesize results;
+@synthesize requestParams;
 
 /**
- @param apikey The API key to initalize the API object with.
+ @param key The API key to initalize the API object with.
  @returns self
  */
--(id)init_with_api_key:(NSString*)apikey
-{
-	if (self = [super init]){
-		api_key = [apikey stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		base_url = @"http://www.shodanhq.com/api/";
+-(id)initWithAPIKey:(NSString*)key {
+	if (self = [super init]) {
+		apiKey = [key stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		baseURL = @"http://www.shodanhq.com/api/";
 	}
 	return self;
 }
 
 /**
- @param apikey The API key to initalize the API object with.
+ @param key The API key to initalize the API object with.
  */
--(void)set_api_key:(NSString*)apikey
-{
-	api_key = apikey;
+-(void)setAPIKey:(NSString*)key {
+	apiKey = key;
 }
 
 /**
@@ -41,45 +39,45 @@
 
  @param function The type of request to send to ShodanHQ.
  */
--(void)request:(NSString*)function
-{
-	params = [NSMutableDictionary dictionaryWithObjectsAndKeys:base_url,@"base_url",[function stringByAppendingFormat:@"?"],@"function",[NSString stringWithFormat:@"key=%@",api_key],@"api_key",nil];
+-(void)request:(NSString*)function {
+	requestParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:baseURL,@"baseURL",[function stringByAppendingFormat:@"?"],@"function",[NSString stringWithFormat:@"key=%@",apiKey],@"apiKey",nil];
 	NSURL* url = nil;
 	NSString* url_string = @"";
 
+// [review] - in iOS 5 and OS X 10.7 the NSDictionary ordering was different for each platform
 #ifdef TARGET_OS_IPHONE
-	url_string = [url_string stringByAppendingFormat:@"%@",base_url];
+	url_string = [url_string stringByAppendingFormat:@"%@",baseURL];
 	url_string = [url_string stringByAppendingFormat:@"%@",[function stringByAppendingFormat:@"?"]];
-	url_string = [url_string stringByAppendingFormat:@"%@",[NSString stringWithFormat:@"key=%@",api_key]];
+	url_string = [url_string stringByAppendingFormat:@"%@",[NSString stringWithFormat:@"key=%@",apiKey]];
 #else
-	for (id key in params){
-		url_string = [url_string stringByAppendingFormat:@"%@",[params objectForKey:key]];
+	for (id key in requestParams){
+		url_string = [url_string stringByAppendingFormat:@"%@",[requestParams objectForKey:key]];
 	}
 #endif
 	
 	if ([function isEqualToString:@"count"]) {
-		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",args]];
+		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",requestArguments]];
 	}
 	else if ([function isEqualToString:@"host"]) {
-		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&ip=%@",args]];
+		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&ip=%@",requestArguments]];
 	}
 	else if ([function isEqualToString:@"info"]) {
 		url = [NSURL URLWithString:url_string];
 	}
 	else if ([function isEqualToString:@"locations"]) {
-		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",args]];
+		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",requestArguments]];
 	}
 	else if ([function isEqualToString:@"search"]) {
-		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",args]];
+		url = [NSURL URLWithString:[url_string stringByAppendingFormat:@"&q=%@",requestArguments]];
 	}
 	
 	NSError* error;
 	NSData* searchResults = [NSData dataWithContentsOfURL:url];
 	if(!searchResults){
-		result = nil;
+		results = nil;
 	}
 	else{
-		result = [NSJSONSerialization JSONObjectWithData:searchResults options:kNilOptions error:&error];
+		results = [NSJSONSerialization JSONObjectWithData:searchResults options:kNilOptions error:&error];
 	}
 }
 
@@ -91,24 +89,23 @@
  @param query The query to request a count for.
  @returns A NSDictionary with the count as the first value.
  */
--(NSDictionary*)count:(NSString*)query
-{
-	args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+-(NSDictionary*)count:(NSString*)query {
+	requestArguments = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"count"];
-	return result;
+	return results;
 }
 
 /**
  Get all the available information on a host in the SHODAN database
 
- @param ip The ip of a host to lookup.
+ @param hostname The ip of a host to lookup.
  @returns A NSDictionary with the keys: "ip", "longitude", "latitude", "hostnames", "country_code", "country", "country_name", and "data".
  */
--(NSDictionary*)host:(NSString*)ip
+-(NSDictionary*)host:(NSString*)hostname
 {
-	args = [ip stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+	requestArguments = [hostname stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"host"];
-	return result;
+	return results;
 }
 
 /**
@@ -116,10 +113,9 @@
 
  @returns A NSDictionary with the keys: "unlocked_left", "telnet", "plan", "https", and "unlocked".
  */
--(NSDictionary*)info
-{
+-(NSDictionary*)info {
 	[self request:@"info"];
-	return result;
+	return results;
 }
 
 /**
@@ -128,11 +124,10 @@
  @param query The query to retrieve location information for.
  @returns A NSDictionary with the keys: "cities" and "countries".
  */
--(NSDictionary*)locations:(NSString*)query
-{
-	args = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+-(NSDictionary*)locations:(NSString*)query {
+	requestArguments = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	[self request:@"locations"];
-	return result;
+	return results;
 }
 
 /** @name Search methods */
@@ -141,18 +136,17 @@
  Search the SHODAN database.
 
  @param query The query to search ShodanHQ for.
- @param page The page number for results.
- @param limit The results to display per page.
- @param offset The result number to begin searching from.
+ @param pageNumber The page number for results.
+ @param perPage The results to display per page.
+ @param pageOffset The result number to begin searching from.
  @returns A NSDictionary with the keys: "cities", "countries", "matches", and "total".
  */
--(NSDictionary*)search:(NSString*)query page:(int)page limit:(int)limit offset:(int)offset
-{
+-(NSDictionary*)search:(NSString*)query page:(int)pageNumber limit:(int)perPage offset:(int)pageOffset {
 	query = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 	
-	args = [query stringByAppendingString:[NSString stringWithFormat:@"&p=%i&l=%i&o=%i",p,l,o]];
+	requestArguments = [query stringByAppendingString:[NSString stringWithFormat:@"&p=%i&l=%i&o=%i",pageNumber,perPage,pageOffset]];
 	[self request:@"search"];
-	return result;
+	return results;
 }
 
 /**
@@ -162,38 +156,34 @@
  @see method search:page:limit:offset:
  @returns A NSDictionary (NSJSONSerialization) of the result.
  */
--(NSDictionary*)search:(NSString*)query
-{
+-(NSDictionary*)search:(NSString*)query {
 	[self search:query page:1 limit:100 offset:0];
-	return result;
+	return results;
 }
 
 /**
  Search the SHODAN database.
 
  @param query The query to search ShodanHQ for.
- @param page The page number for results.
+ @param pageNumber The page number for results.
  @returns A NSDictionary (NSJSONSerialization) of the result.
  */
--(NSDictionary*)search:(NSString*)query page:(int)page
-{
-	[self search:query page:p limit:100 offset:0];
-	return result;
+-(NSDictionary*)search:(NSString*)query page:(int)pageNumber {
+	[self search:query page:pageNumber limit:100 offset:0];
+	return results;
 }
 
 /**
  Search the SHODAN database.
 
  @param query The query to search ShodanHQ for.
- @param page The page number for results.
- @param limit The results to display per page.
+ @param pageNumber The page number for results.
+ @param perPage The results to display per page.
  @returns A NSDictionary (NSJSONSerialization) of the result.
  */
--(NSDictionary*)search:(NSString*)query page:(int)page limit:(int)limit
-{
-	[self search:query page:p limit:l offset:0];
-	return result;
+-(NSDictionary*)search:(NSString*)query page:(int)pageNumber limit:(int)perPage {
+	[self search:query page:pageNumber limit:perPage offset:0];
+	return results;
 }
 
 @end
-

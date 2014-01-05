@@ -6,24 +6,24 @@
 
 @interface ECShodanClient : NSObject
 
-@property (strong, nonatomic) NSString* api_key;
-@property (strong, nonatomic) NSString* args;
-@property (strong,nonatomic) NSString* base_url;
-@property (strong,nonatomic) NSDictionary* params;
-@property (strong, nonatomic) NSDictionary* result;
+@property (strong, nonatomic) NSString* apiKey;
+@property (strong, nonatomic) NSString* baseURL;
+@property (strong, nonatomic) NSString* requestArguments;
+@property (strong, nonatomic) NSDictionary* results;
+@property (strong, nonatomic) NSDictionary* requestParams;
 
--(id)init_with_api_key:(NSString*)apikey;
+-(id)initWithAPIKey:(NSString*)key;
 
--(void)set_api_key:(NSString*)apikey;
+-(void)setAPIKey:(NSString*)key;
 
 -(void)request:(NSString*)function;
 
 -(NSDictionary*)info;
--(NSDictionary*)host:(NSString*)ip;
+-(NSDictionary*)host:(NSString*)hostname;
 -(NSDictionary*)locations:(NSString*)query;
 -(NSDictionary*)search:(NSString*)query;
--(NSDictionary*)search:(NSString*)query page:(int)p;
--(NSDictionary*)search:(NSString*)query page:(int)p limit:(int)l;
--(NSDictionary*)search:(NSString*)query page:(int)p limit:(int)l offset:(int)o;
+-(NSDictionary*)search:(NSString*)query page:(int)pageNumber;
+-(NSDictionary*)search:(NSString*)query page:(int)pageNumber limit:(int)perPage;
+-(NSDictionary*)search:(NSString*)query page:(int)pageNumber limit:(int)perPage offset:(int)pageOffset;
 
 @end
