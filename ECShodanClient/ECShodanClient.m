@@ -19,10 +19,12 @@
  @returns self
  */
 - (id)initWithAPIKey:(NSString *)key {
-	if (self = [super init]) {
+	self = [super init];
+  if (self) {
 		apiKey = [key stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		baseURL = @"http://www.shodanhq.com/api/";
 	}
+
 	return self;
 }
 
