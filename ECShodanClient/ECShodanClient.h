@@ -96,7 +96,9 @@
  @returns A NSDictionary with the keys: "cities", "countries", "matches", and "total".
  @see method search:page:limit:offset:
  */
-- (NSDictionary *)search:(NSString *)query page:(int)pageNumber limit:(int)perPage;
+- (NSDictionary *)search:(NSString *)query
+                    page:(int)pageNumber
+                   limit:(int)perPage;
 
 /**
  Search the SHODAN database.
@@ -108,6 +110,9 @@
  @returns A NSDictionary with the keys: "cities", "countries", "matches", and "total".
  @see method search:page:limit:offset:
  */
-- (NSDictionary *)search:(NSString *)query page:(int)pageNumber limit:(int)perPage offset:(int)pageOffset;
+- (NSDictionary *)search:(NSString *)query
+                    page:(int)pageNumber
+                   limit:(int)perPage
+                  offset:(int)pageOffset;
 
 @end
