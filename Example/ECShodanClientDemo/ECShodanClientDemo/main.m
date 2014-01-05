@@ -7,16 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ECShodanClient.h"
 
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
-        
-        // insert code here...
-        NSLog(@"Hello, World!");
-        
+        NSString *apiKey = [[[NSProcessInfo processInfo] environment] objectForKey:@"SHODAN_API_KEY"];
+
+        ECShodanClient *client = [[ECShodanClient alloc] initWithAPIKey:apiKey];
+
+        NSLog(@"client info: %@", [client info]);
+
+        // Subsequent requests should all fail a bad API key
+        client.apiKey = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+        NSLog(@"failed client info: %@", [client info]);
     }
     return 0;
 }
-

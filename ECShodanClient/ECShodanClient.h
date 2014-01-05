@@ -32,14 +32,14 @@
 @property (strong, nonatomic) NSDictionary *results;
 
 /**
- The request paremeters compiled as a query string.
- */
-@property (strong, nonatomic) NSString *queryString;
-
-/**
  A dictionary to store request parameters
  */
 @property (strong, nonatomic) NSDictionary *requestParameters;
+
+/**
+ The request paremeters compiled as a query string.
+ */
+@property (strong, nonatomic) NSString *queryString;
 
 /**
  @param key The API key to initalize the API object with.

@@ -10,6 +10,7 @@
 		BC3398BA18796E51005A074C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3398B918796E51005A074C /* Foundation.framework */; };
 		BC3398BD18796E51005A074C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3398BC18796E51005A074C /* main.m */; };
 		BC3398C118796E51005A074C /* ECShodanClientDemo.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC3398C018796E51005A074C /* ECShodanClientDemo.1 */; };
+		BC3398CA18796EA6005A074C /* ECShodanClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3398C918796EA6005A074C /* ECShodanClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		BC3398BC18796E51005A074C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BC3398BF18796E51005A074C /* ECShodanClientDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ECShodanClientDemo-Prefix.pch"; sourceTree = "<group>"; };
 		BC3398C018796E51005A074C /* ECShodanClientDemo.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ECShodanClientDemo.1; sourceTree = "<group>"; };
+		BC3398C818796EA6005A074C /* ECShodanClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECShodanClient.h; sourceTree = "<group>"; };
+		BC3398C918796EA6005A074C /* ECShodanClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECShodanClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,7 @@
 		BC3398BB18796E51005A074C /* ECShodanClientDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BC3398C718796EA6005A074C /* ECShodanClient */,
 				BC3398BC18796E51005A074C /* main.m */,
 				BC3398C018796E51005A074C /* ECShodanClientDemo.1 */,
 				BC3398BE18796E51005A074C /* Supporting Files */,
@@ -86,6 +90,16 @@
 				BC3398BF18796E51005A074C /* ECShodanClientDemo-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BC3398C718796EA6005A074C /* ECShodanClient */ = {
+			isa = PBXGroup;
+			children = (
+				BC3398C818796EA6005A074C /* ECShodanClient.h */,
+				BC3398C918796EA6005A074C /* ECShodanClient.m */,
+			);
+			name = ECShodanClient;
+			path = ../../../ECShodanClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC3398BD18796E51005A074C /* main.m in Sources */,
+				BC3398CA18796EA6005A074C /* ECShodanClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +266,7 @@
 				BC3398C618796E51005A074C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -13,8 +13,8 @@
 @synthesize apiKey;
 @synthesize baseURL; // [todo] - Use a constant
 @synthesize results;
-@synthesize queryString;
 @synthesize requestParameters;
+@synthesize queryString;
 
 #pragma mark -
 
