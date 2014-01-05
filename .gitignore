@@ -22,3 +22,5 @@ Pods
 
 # Documentation
 docset-installed.txt
+# Watson
+.watson*
