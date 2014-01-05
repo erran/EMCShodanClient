@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
                    DESC
   s.source       = {
     git: 'https://github.com/ipwnstuff/ECShodanClient.git',
-    tag: s.version.to_s
+    tag: "v#{s.version}"
   }
   s.source_files = 'ECShodanClient'
   s.requires_arc = true
