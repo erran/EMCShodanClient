@@ -1,10 +1,4 @@
 # ECShodanClient
-## TODO: Add a link to documentation
-
-To visit the official Shodan API documentation go here:
-
-[http://docs.shodanhq.com](http://docs.shodanhq.com)
-
 ## Usage
 
 Before you can use this Objective-C library to connect to the SHODAN API, you need to have an API key [from SHODAN](http://www.shodanhq.com/api_doc).
